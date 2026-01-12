@@ -68,24 +68,31 @@ header {
 a { color: var(--accent); text-decoration:none }
 
 /* ===== iOS Back Button ===== */
-#back-button {
+#back-button: active {
+  transform: scale(.94);
   position: fixed;
   top: 16px;
   left: 16px;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
   background: color-mix(in srgb, var(--card) 75%, transparent);
   backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
   border: 1px solid var(--border);
   border-radius: 999px;
   padding: 6px 12px;
-  font-size: .85rem;
-  color: var(--text);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .2s ease, transform .2s ease;
-  z-index: 50;
-}
 
-#back-button.show {
+  color: var(--text);
+  font-size: .85rem;
+
+  cursor: pointer;
+
+  /* ⚠️ PENTING */
   opacity: 1;
   pointer-events: auto;
 }

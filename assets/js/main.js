@@ -39,13 +39,17 @@ document.addEventListener("DOMContentLoaded", () => {
      Back Button (Projects)
   ===================== */
   const backBtn = document.getElementById("back-button");
-  if (backBtn && history.length > 1) {
-    backBtn.classList.add("show");
 
-    backBtn.onclick = () => {
+  if (backBtn) {
+    backBtn.addEventListener("click", () => {
       navigator.vibrate?.(10);
-      history.back();
-    };
+
+      if (window.history.length > 1) {
+        history.back();
+      } else {
+        window.location.href = "../index.html";
+      }
+    });
   }
 
   /* =====================
