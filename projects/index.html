@@ -4,54 +4,51 @@
   <meta charset="UTF-8">
   <title>Projects | Febri Cahya</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
-<header class="site-header">
-  <h1>Febri Cahya</h1>
-  <p>Android • AOSP • Kernel Enthusiast</p>
-  <button id="theme-toggle" aria-label="Toggle theme">🌙</button>
+<!-- iOS-style Back Button (Projects only) -->
+<button id="back-button" aria-label="Back">
+  ‹ Back
+</button>
+
+<header>
+  <h1>Projects</h1>
+  <p>Beberapa project utama yang saya kerjakan</p>
 </header>
 
-<section class="page-title">
-  <h2>Projects</h2>
-  <p>Beberapa project utama yang saya kerjakan</p>
-</section>
-
 <section>
-  <h2>AOSP & System</h2>
   <div class="card-grid">
-    <div class="card">
+
+    <div class="card" data-project="easeos">
       <h3>EaseOS</h3>
       <p>Custom AOSP ROM fokus stabilitas dan UX.</p>
-      <a href="https://github.com/EaseOS-AOSP" target="_blank">GitHub →</a>
     </div>
 
-    <div class="card">
+    <div class="card" data-project="updater">
       <h3>Updater UI Rework</h3>
-      <p>Redesign UI/UX aplikasi Updater LineageOS.</p>
+      <p>Modifikasi UI/UX aplikasi Updater LineageOS.</p>
     </div>
-  </div>
-</section>
 
-<section>
-  <h2>Kernel & Tools</h2>
-  <div class="card-grid">
-    <div class="card">
+    <div class="card" data-project="kernel">
       <h3>Kernel GKI 5.10</h3>
       <p>Kernel custom Snapdragon 7s Gen 2.</p>
     </div>
 
-    <div class="card">
+    <div class="card" data-project="module">
       <h3>Magisk / KSU Module</h3>
-      <p>Modul tweak performa dan thermal Android.</p>
+      <p>Modul tweak performa & thermal Android.</p>
     </div>
+
   </div>
 </section>
 
-<footer class="site-footer">
-  <p><a href="../index.html">← Kembali ke Home</a></p>
+<footer>
+  <p>
+    <a href="../index.html">← Kembali ke Home</a>
+  </p>
 </footer>
 
 <script src="../assets/js/main.js"></script>

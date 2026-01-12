@@ -1,160 +1,103 @@
 :root {
-  --bg: #0e1116;
-  --text: #e6e6e6;
-  --muted: #9aa0a6;
-  --card: #161a22;
-  --border: #2a2f36;
-  --accent: #7dd3a7;
+  --bg:#0e1116;
+  --text:#e6e6e6;
+  --muted:#9aa0a6;
+  --card:#161a22;
+  --border:#2a2f36;
+  --accent:#7dd3a7;
 }
 
 [data-theme="light"] {
-  --bg: #ffffff;
-  --text: #1a1a1a;
-  --muted: #555;
-  --card: #f5f5f5;
-  --border: #ddd;
-  --accent: #2f855a;
+  --bg:#fff;
+  --text:#111;
+  --muted:#555;
+  --card:#f5f5f5;
+  --border:#ddd;
+  --accent:#2f855a;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { box-sizing:border-box; margin:0; padding:0 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Ubuntu, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
+  animation: pageIn .35s cubic-bezier(.2,.8,.2,1);
 }
 
-a {
-  color: var(--accent);
-  text-decoration: none;
-  transition: opacity 0.15s ease;
-}
-
-a:hover {
-  opacity: 0.85;
+@keyframes pageIn {
+  from { opacity:0; transform: translateY(14px); }
+  to   { opacity:1; transform:none; }
 }
 
 header, section, footer {
   max-width: 960px;
   margin: auto;
-  padding: clamp(20px, 4vw, 40px) clamp(16px, 5vw, 32px);
+  padding: 28px 20px;
 }
 
-.site-header {
+header {
   text-align: center;
-  padding-top: clamp(56px, 10vw, 88px);
-  position: relative;
-}
-
-.site-header h1 {
-  font-size: clamp(1.9rem, 5vw, 2.6rem);
-}
-
-.site-header p {
-  color: var(--muted);
-  margin-top: 6px;
-}
-
-#theme-toggle {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  color: var(--text);
-  padding: 6px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  z-index: 100;
-}
-
-section h2 {
-  font-size: 1.25rem;
-  margin-bottom: 12px;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 6px;
-}
-
-.page-title {
-  text-align: center;
-}
-
-.page-title h2 {
-  border: none;
-}
-
-.page-title p {
-  color: var(--muted);
-  font-size: 0.95rem;
-}
-
-ul {
-  list-style: none;
-  margin-top: 12px;
-}
-
-li {
-  margin-bottom: 10px;
+  padding-top: 72px;
 }
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
   gap: 16px;
-  margin-top: 16px;
 }
 
 .card {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 18px;
-  animation: fadeUp 0.5s ease both;
+  border-radius: 16px;
+  padding: 16px;
+  cursor: pointer;
+  will-change: transform;
+  transition:
+    transform .18s cubic-bezier(.2,.8,.2,1),
+    box-shadow .18s cubic-bezier(.2,.8,.2,1);
 }
 
-.card h3 {
-  margin-bottom: 6px;
+.card:active {
+  transform: scale(.96);
+  box-shadow: 0 14px 34px rgba(0,0,0,.28);
 }
 
-.card p {
-  color: var(--muted);
-  font-size: 0.9rem;
+a { color: var(--accent); text-decoration:none }
+
+/* ===== iOS Back Button ===== */
+#back-button {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  background: color-mix(in srgb, var(--card) 75%, transparent);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: .85rem;
+  color: var(--text);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+  z-index: 50;
 }
 
-.site-footer {
-  text-align: center;
-  font-size: 0.85rem;
-  color: var(--muted);
-  border-top: 1px solid var(--border);
-  margin-top: 40px;
+#back-button.show {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-/* Animations */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-header, section, footer {
-  animation: fadeUp 0.6s ease both;
-}
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-  }
+/* ===== Loading Progress Bar ===== */
+#progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--accent);
+  z-index: 100;
+  transition: width .25s ease;
 }

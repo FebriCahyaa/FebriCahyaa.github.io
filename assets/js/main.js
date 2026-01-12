@@ -1,38 +1,89 @@
 document.addEventListener("DOMContentLoaded", () => {
-  document.body.style.opacity = 0;
-  document.body.style.transition = "opacity 0.5s ease";
-  requestAnimationFrame(() => {
-    document.body.style.opacity = 1;
-  });
 
-  const toggle = document.getElementById("theme-toggle");
+  /* =====================
+     Page Loading Progress
+  ===================== */
+  const bar = document.createElement("div");
+  bar.id = "progress";
+  document.body.appendChild(bar);
+
+  requestAnimationFrame(() => bar.style.width = "30%");
+  window.addEventListener("load", () => bar.style.width = "100%");
+  setTimeout(() => bar.remove(), 600);
+
+  /* =====================
+     Auto Theme (System)
+  ===================== */
   const root = document.documentElement;
-  const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
-
-  function applyTheme(theme) {
-    root.setAttribute("data-theme", theme);
-    if (toggle) toggle.textContent = theme === "dark" ? "☀" : "🌙";
-  }
-
   const saved = localStorage.getItem("theme");
-  if (saved) {
-    applyTheme(saved);
-  } else {
-    applyTheme(systemTheme.matches ? "dark" : "light");
+  const systemDark = matchMedia("(prefers-color-scheme: dark)").matches;
+
+  root.setAttribute("data-theme", saved || (systemDark ? "dark" : "light"));
+
+  /* Theme toggle */
+  const toggle = document.getElementById("theme-toggle");
+  if (toggle) {
+    toggle.textContent =
+      root.getAttribute("data-theme") === "light" ? "🌙" : "☀";
+
+    toggle.onclick = () => {
+      const t =
+        root.getAttribute("data-theme") === "light" ? "dark" : "light";
+      root.setAttribute("data-theme", t);
+      localStorage.setItem("theme", t);
+      toggle.textContent = t === "light" ? "🌙" : "☀";
+    };
   }
 
-  systemTheme.addEventListener("change", (e) => {
-    if (!localStorage.getItem("theme")) {
-      applyTheme(e.matches ? "dark" : "light");
+  /* =====================
+     Back Button (Projects)
+  ===================== */
+  const backBtn = document.getElementById("back-button");
+  if (backBtn && history.length > 1) {
+    backBtn.classList.add("show");
+
+    backBtn.onclick = () => {
+      navigator.vibrate?.(10);
+      history.back();
+    };
+  }
+
+  /* =====================
+     Velocity Swipe Back
+  ===================== */
+  let sx = 0, st = 0;
+
+  window.addEventListener("touchstart", e => {
+    if (e.touches[0].clientX < 20) {
+      sx = e.touches[0].clientX;
+      st = performance.now();
     }
   });
 
-  if (toggle) {
-    toggle.addEventListener("click", () => {
-      const next =
-        root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      localStorage.setItem("theme", next);
-      applyTheme(next);
-    });
-  }
+  window.addEventListener("touchend", e => {
+    if (!sx) return;
+    const dx = e.changedTouches[0].clientX - sx;
+    const dt = performance.now() - st;
+    const v = dx / dt;
+
+    if (dx > 90 && v > 0.35) {
+      navigator.vibrate?.(12);
+      history.back();
+    }
+    sx = 0;
+  });
+
+  /* =====================
+     Card Shared Transition
+  ===================== */
+  document.querySelectorAll(".card").forEach(card => {
+    card.onclick = () => {
+      navigator.vibrate?.(6);
+      card.animate(
+        [{ transform: "scale(1)" }, { transform: "scale(0.92)" }],
+        { duration: 160, easing: "cubic-bezier(.2,.8,.2,1)" }
+      );
+    };
+  });
+
 });

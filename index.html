@@ -4,14 +4,18 @@
   <meta charset="UTF-8">
   <title>Febri Cahya | Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<header class="site-header">
+<header>
   <h1>Febri Cahya</h1>
   <p>Android • AOSP • Kernel Enthusiast</p>
-  <button id="theme-toggle" aria-label="Toggle theme">🌙</button>
+
+  <button id="theme-toggle" aria-label="Toggle theme">
+    🌙
+  </button>
 </header>
 
 <section>
@@ -23,29 +27,23 @@
 </section>
 
 <section>
-  <h2>Keahlian</h2>
-  <ul>
-    <li>AOSP / ROM Development</li>
-    <li>Linux Kernel (GKI 5.10)</li>
-    <li>Android System & Vendor</li>
-    <li>Magisk / KSU Module</li>
-    <li>Git & GitHub</li>
-  </ul>
-</section>
-
-<section>
   <h2>Project Unggulan</h2>
 
   <div class="card-grid">
-    <div class="card">
+    <div class="card" data-project="easeos">
       <h3>EaseOS</h3>
-      <p>Custom AOSP ROM fokus stabilitas, performa, dan UX.</p>
-      <a href="https://github.com/EaseOS-AOSP" target="_blank">GitHub →</a>
+      <p>
+        Custom AOSP ROM fokus stabilitas, performa,
+        dan UX untuk perangkat Xiaomi.
+      </p>
     </div>
 
-    <div class="card">
+    <div class="card" data-project="kernel">
       <h3>Kernel GKI 5.10</h3>
-      <p>Kernel custom Linux 5.10 untuk Snapdragon & Xiaomi.</p>
+      <p>
+        Kernel custom berbasis Linux 5.10
+        untuk Snapdragon & Xiaomi devices.
+      </p>
     </div>
   </div>
 
@@ -54,10 +52,12 @@
   </p>
 </section>
 
-<footer class="site-footer">
+<footer>
   <p>
-    © 2026 Febri Cahya ·
-    <a href="https://github.com/FebriCahyaa" target="_blank">GitHub</a>
+    GitHub:
+    <a href="https://github.com/FebriCahyaa" target="_blank">
+      @FebriCahyaa
+    </a>
   </p>
 </footer>
 
